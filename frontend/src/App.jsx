@@ -9,7 +9,8 @@ function App() {
     return <>
         <BrowserRouter > 
             <Routes>
-                <Route index path='/' Component={Start}/>
+                {/* <Route index path='/' Component={Start}/> */}
+                <Route path='/' index Component={SignUp}/>
                 <Route path='/signup' Component={SignUp}/>
                 <Route path='/signin' Component={SignIn}/>
                 <Route path='/dashboard' Component={DashBoard}/>
@@ -19,11 +20,11 @@ function App() {
     </>
 }
 
-const Start = () => {
-    const navigate = useNavigate()
-    useEffect(() => {
-        navigate('/signup')
-    },[])
-}
+// const Start = () => {
+//     const navigate = useNavigate()
+//     useEffect(() => {
+//         navigate('/signup')
+//     },[])
+// }
 
 export default App
