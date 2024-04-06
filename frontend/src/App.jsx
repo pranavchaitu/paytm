@@ -9,12 +9,12 @@ function App() {
     return <>
         <BrowserRouter > 
             <Routes>
-                <Route index Component={Start}/>
+                <Route index path='/' Component={Start}/>
                 <Route path='/signup' Component={SignUp}/>
                 <Route path='/signin' Component={SignIn}/>
                 <Route path='/dashboard' Component={DashBoard}/>
                 <Route path='/send' Component={SendMoney}/>
-            </Routes>
+            </Routes>   
         </BrowserRouter>
     </>
 }
