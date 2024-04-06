@@ -9,22 +9,21 @@ function App() {
     return <>
         <BrowserRouter > 
             <Routes>
-                {/* <Route index path='/' Component={Start}/> */}
-                <Route path='/' index Component={SignUp}/>
+                <Route index Component={Start}/>
                 <Route path='/signup' Component={SignUp}/>
                 <Route path='/signin' Component={SignIn}/>
                 <Route path='/dashboard' Component={DashBoard}/>
                 <Route path='/send' Component={SendMoney}/>
-            </Routes>   
+            </Routes>
         </BrowserRouter>
     </>
 }
 
-// const Start = () => {
-//     const navigate = useNavigate()
-//     useEffect(() => {
-//         navigate('/signup')
-//     },[])
-// }
+const Start = () => {
+    const navigate = useNavigate()
+    useEffect(() => {
+        navigate('/signup')
+    },[])
+}
 
 export default App
