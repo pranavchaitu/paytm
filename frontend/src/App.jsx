@@ -1,19 +1,20 @@
-import { BrowserRouter,Route,Routes,Navigate, useNavigate } from 'react-router-dom'
-import { SignUp } from './pages/SignUp'
+import { BrowserRouter,Route,Routes, useNavigate } from 'react-router-dom'
+import React, { useEffect, Suspense } from 'react'
+import { Loader } from './components/Loader';
 import { SignIn } from './pages/SignIn'
+import { SignUp } from './pages/SignUp'
 import { DashBoard } from './pages/DashBoard'
 import { SendMoney } from './pages/SendMoney'
-import { useEffect } from 'react'
 
 function App() {
     return <>
         <BrowserRouter > 
             <Routes>
                 <Route index Component={Start}/>
-                <Route path='/signup' Component={SignUp}/>
-                <Route path='/signin' Component={SignIn}/>
-                <Route path='/dashboard' Component={DashBoard}/>
-                <Route path='/send' Component={SendMoney}/>
+                <Route path='/signup' element={<Suspense fallback={<Loader />}><SignUp /></Suspense>}/>
+                <Route path='/signin' element={<Suspense fallback={<Loader />}><SignIn /></Suspense>}/>
+                <Route path='/dashboard' element={<Suspense fallback={<Loader />}><DashBoard /></Suspense>}/>
+                <Route path='/send' element={<Suspense fallback={<Loader />}><SendMoney /></Suspense>}/>
             </Routes>
         </BrowserRouter>
     </>
