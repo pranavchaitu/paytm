@@ -5,6 +5,7 @@ import { Button } from "../components/Button"
 import { BottomWarning } from "../components/BottomWarning"
 import axios from "axios";
 import { useState } from "react";
+import { BACKEND_URL } from "../../config"
 
 export function SignUp(){
     const [firstName, setFirstName] = useState("")
@@ -12,8 +13,8 @@ export function SignUp(){
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
-    return <div className="flex justify-center items-center h-screen bg-black">
-        <div className="border flex flex-col p-4 items-center bg-white rounded">
+    return <div className="flex justify-center items-center h-screen bg-slate-300">
+        <div className="border flex flex-col p-4 gap-1 items-center bg-white rounded-lg">
             <Heading title={"Signup"}/>
             <SubHeading title={"Enter your information to create a account"}/>
             <InputBox label={"First Name"} placeHolder={"Pranav"} onChange={(e) => {
@@ -28,15 +29,18 @@ export function SignUp(){
             <InputBox label={"Password"} placeHolder={"12345"} onChange={(e) => {
                 setPassword(e.target.value)
             }}/>
-            <Button title={"Sign up"} onClick={async () => {
-                await axios.post("http://localhost:3000/api/v1/user/signup",{
-                    firstName,
-                    lastName,
-                    username,
-                    password
-                })
-            }}/>
-            <BottomWarning type={"Signup"}/>
+            <div className="w-full my-2">
+                <Button title={"Sign up"} onClick={async () => {
+                    const res = await axios.post(`${BACKEND_URL}/user/signup`,{
+                        firstName,
+                        lastName,
+                        username,
+                        password
+                    });
+                    localStorage.setItem('token',res.data.token);
+                }}/>
+            </div>
+            <BottomWarning label={"Already have an account?"} buttonText={"Sign in"} to={"/signin"} />
         </div>
     </div>
 }

@@ -1,23 +1,12 @@
 import { Link } from "react-router-dom"
 
-export const BottomWarning = ({state}) => {
+export const BottomWarning = ({label,buttonText,to}) => {
     return <>
-        <div className="text-sm">
-            {state === "true" ? <>
-                <span>Don't have an account ?</span>
-                <a className="underline">
-                    <Link to='/signup'>
-                        Sign up
-                    </Link>
-                </a>                
-            </> : <>
-                <span>Aldready have a account ?</span>
-                <a className="underline">
-                    <Link to='/signin'>
-                        Sign in
-                    </Link>
-                </a>
-            </>}
+        <div className="text-sm py-2 ">
+            {label} 
+            <Link className="underline pl-1" to={to}>
+                {buttonText}
+            </Link>                
         </div>
     </>
 }
