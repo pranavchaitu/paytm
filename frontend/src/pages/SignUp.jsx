@@ -4,14 +4,31 @@ import { InputBox } from "../components/InputBox"
 import { Button } from "../components/Button"
 import { BottomWarning } from "../components/BottomWarning"
 import axios from "axios";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { BACKEND_URL } from "../../config"
+import { useNavigate } from "react-router-dom"
 
 export function SignUp(){
+
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const navigate= useNavigate();
+    
+    useEffect(() => {
+        const fetch = async () => {
+            let res = await axios.get(`${BACKEND_URL}/me`,{
+                headers : {
+                    Authorization : `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            if(res.data.isAuthenticated) {
+                navigate('/dashboard')
+            }
+        }
+        fetch();
+    },[])
 
     return <div className="flex justify-center items-center h-screen bg-slate-300">
         <div className="border flex flex-col p-4 gap-1 items-center bg-white rounded-lg">
@@ -26,7 +43,7 @@ export function SignUp(){
             <InputBox label={"Email"} placeHolder={"pranav@gmail.com"} onChange={(e) => {
                 setUsername(e.target.value)
             }}/>
-            <InputBox label={"Password"} placeHolder={"12345"} onChange={(e) => {
+            <InputBox label={"Password"} placeHolder={"123456"} onChange={(e) => {
                 setPassword(e.target.value)
             }}/>
             <div className="w-full my-2">
@@ -38,6 +55,7 @@ export function SignUp(){
                         password
                     });
                     localStorage.setItem('token',res.data.token);
+                    navigate('/dashboard');
                 }}/>
             </div>
             <BottomWarning label={"Already have an account?"} buttonText={"Sign in"} to={"/signin"} />

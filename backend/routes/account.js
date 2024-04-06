@@ -1,16 +1,18 @@
 const express = require('express');
-const { Account } = require('../db');
+const { Account, User } = require('../db');
 const { default: mongoose } = require('mongoose');
 const { authMiddleware } = require('../middleware');
 
 const router = express.Router();
 
-router.get('/balance',authMiddleware,async (req,res) => {
+router.get('/dashboard',authMiddleware,async (req,res) => {
     try {
         const account = await Account.findOne({
             userId : req.userId
         });        
+        const user = await User.findById(req.userId)
         return res.json({
+            name : user.firstName, 
             balance : account.balance
         })       
     } catch (error) {
